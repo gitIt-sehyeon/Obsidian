@@ -1,4 +1,7 @@
 [[Maintenance]]
+[[Join, Selection and Projection in Incremental View Maintenance]]
+[[Aggregation Operations in Maintenance]]
+
 
 # 🧱 **Materialized View란? (물질화 뷰)**
 
