@@ -13,15 +13,44 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Deep Learning/Test2.md",
+                "file": "Database Design/Query Optimization.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Test2"
+              "title": "Query Optimization"
+            }
+          },
+          {
+            "id": "6bda641b83c98673",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Database Design/Query Optimization.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Query Optimization"
+            }
+          },
+          {
+            "id": "4862ecb21ba460f5",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Database Design/Selection Size Estimation.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Selection Size Estimation"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -194,10 +223,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "b592aae5a9aaa439",
+  "active": "4862ecb21ba460f5",
   "lastOpenFiles": [
-    "ScheduleApp/Test.md",
+    "Database Design/Query Optimization.md",
+    "Database Design/Selection Size Estimation.md",
     "Deep Learning/Test2.md",
+    "Database Design",
+    "ScheduleApp/Test.md",
     "Deep Learning",
     "Untitled.md",
     "ScheduleApp"
