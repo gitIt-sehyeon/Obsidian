@@ -8,147 +8,35 @@
         "type": "tabs",
         "children": [
           {
-            "id": "b592aae5a9aaa439",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Database Design/Query Optimization.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Query Optimization"
-            }
-          },
-          {
-            "id": "6bda641b83c98673",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Database Design/Query Optimization.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Query Optimization"
-            }
-          },
-          {
-            "id": "4862ecb21ba460f5",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Database Design/Selection Size Estimation.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Selection Size Estimation"
-            }
-          },
-          {
-            "id": "2a8a11e060348890",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Database Design/Query Optimization.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Query Optimization"
-            }
-          },
-          {
-            "id": "812feb8a39234ff1",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Database Design/Query Optimization.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Query Optimization"
-            }
-          },
-          {
-            "id": "0402e22e01356228",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Database Design/Query Optimization.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Query Optimization"
-            }
-          },
-          {
-            "id": "084d80ebea07c6aa",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Database Design/Query Optimization.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Query Optimization"
-            }
-          },
-          {
-            "id": "8d941413cd278dfd",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Database Design/Query Optimization.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Query Optimization"
-            }
-          },
-          {
-            "id": "a6f87f9323353c1e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Database Design/Query Optimization.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Query Optimization"
-            }
-          },
-          {
             "id": "9a6c5cb8e63128a4",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Database Design/Estimation of the Size of Joins.md",
+                "file": "Database Design/Query Optimization.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Estimation of the Size of Joins"
+              "title": "Query Optimization"
+            }
+          },
+          {
+            "id": "90e9890c532bc086",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Database Design/3. Materialized Views/Materialized Views.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Materialized Views"
             }
           }
         ],
-        "currentTab": 9
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -321,13 +209,24 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "9a6c5cb8e63128a4",
+  "active": "90e9890c532bc086",
   "lastOpenFiles": [
-    "Database Design/Selection Size Estimation.md",
-    "Database Design/Size Estimation of Complex Selections.md",
-    "Database Design/Statistical Information for Cost Estimation.md",
-    "Database Design/Estimation of the Size of Joins.md",
+    "Database Design/3. Materialized Views/Maintenance.md",
+    "Database Design/3. Materialized Views/Materialized Views.md",
+    "Database Design/2. CHOOSING EVALUATION PLANS/CHOOSING EVALUATION PLANS.md",
+    "Database Design/2. CHOOSING EVALUATION PLANS/Summary.md",
+    "Database Design/3. Materialized Views",
     "Database Design/Query Optimization.md",
+    "Database Design/1. Statistics for Cost Estimation/Selection Size Estimation.md",
+    "Database Design/1. Statistics for Cost Estimation/Size Estimation of Complex Selections.md",
+    "Database Design/1. Statistics for Cost Estimation/Statistical Information for Cost Estimation.md",
+    "Database Design/1. Statistics for Cost Estimation/Estimation of the Size of Joins.md",
+    "Database Design/1. Statistics for Cost Estimation/Statistics for Cost Estimation.md",
+    "Database Design/1. Statistics for Cost Estimation",
+    "Database Design/2. CHOOSING EVALUATION PLANS",
+    "Database Design/2. CHOOSING EVALUATION PLANS/Cost-Based Optimization vs heuristics.md",
+    "Database Design/2. CHOOSING EVALUATION PLANS/Optimizing Nested Subqueries.md",
+    "Database Design/2. CHOOSING EVALUATION PLANS/Dynamic Programming in Join Order Optimization.md",
     "images/Pasted image 20251209214659.png",
     "images/Pasted image 20251209215301.png",
     "images/Pasted image 20251209214737.png",
