@@ -48,9 +48,51 @@
               "icon": "lucide-file",
               "title": "Selection Size Estimation"
             }
+          },
+          {
+            "id": "2a8a11e060348890",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Database Design/Query Optimization.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Query Optimization"
+            }
+          },
+          {
+            "id": "812feb8a39234ff1",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Database Design/Query Optimization.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Query Optimization"
+            }
+          },
+          {
+            "id": "0402e22e01356228",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Database Design/Query Optimization.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Query Optimization"
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 5
       }
     ],
     "direction": "vertical"
@@ -223,10 +265,15 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "4862ecb21ba460f5",
+  "active": "0402e22e01356228",
   "lastOpenFiles": [
-    "Database Design/Query Optimization.md",
     "Database Design/Selection Size Estimation.md",
+    "Database Design/Query Optimization.md",
+    "images",
+    "images/Pasted image 20251209213418.png",
+    "images/Pasted image 20251209213403.png",
+    "images/Pasted image 20251209213342.png",
+    "Pasted image 20251209213040.png",
     "Deep Learning/Test2.md",
     "Database Design",
     "ScheduleApp/Test.md",
