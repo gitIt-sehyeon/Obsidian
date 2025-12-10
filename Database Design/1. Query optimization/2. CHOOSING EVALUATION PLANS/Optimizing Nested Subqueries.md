@@ -45,7 +45,14 @@ OR/DISTINCT와 섞여 있으면 변환을 못할 때가 있다.
 
 ### 원래 형태 (correlated subquery)
 
-`select name from instructor where exists (     select *     from teaches     where instructor.ID = teaches.ID       and teaches.year = 2007 );`
+`select name 
+from instructor 
+where exists 
+(     select *     
+	from teaches    
+	 where instructor.ID = teaches.ID       
+	 and teaches.year = 2007 
+);`
 
 여기서 문제는:
 
@@ -60,7 +67,13 @@ OR/DISTINCT와 섞여 있으면 변환을 못할 때가 있다.
 
 슬라이드에서 변환한 형태는:
 
-`create table t1 as     select distinct ID     from teaches     where year = 2007;  select name from instructor, t1 where t1.ID = instructor.ID;`
+`create table t1 as     
+	select distinct ID     
+	from teaches     
+	where year = 2007;  
+select name 
+from instructor, t1 
+where t1.ID = instructor.ID;`
 
 ### 이 형태의 장점:
 
