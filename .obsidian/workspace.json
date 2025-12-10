@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Database Design/1. Query optimization/1. Statistics for Cost Estimation/Estimation of the Size of Joins.md",
+                "file": "Database Design/3.Concurrency Control/Lock-Based Protocols/3. Deadlock prevention.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Estimation of the Size of Joins"
+              "title": "3. Deadlock prevention"
             }
           }
         ]
@@ -196,14 +196,21 @@
   },
   "active": "d40208851d0a3582",
   "lastOpenFiles": [
+    "Database Design/3.Concurrency Control/Lock-Based Protocols/2. Graph-Based protocols.md",
+    "Database Design/3.Concurrency Control/Lock-Based Protocols/1. Two-Phase Locking Protocol.md",
+    "Database Design/2. Transaction/5. Cascadeless schedules.md",
+    "Database Design/2. Transaction/4. View Serializability.md",
+    "Database Design/1. Query optimization/1. Statistics for Cost Estimation/Selection Size Estimation.md",
+    "Database Design/1. Query optimization/1. Statistics for Cost Estimation/Size Estimation of Complex Selections.md",
+    "Database Design/1. Query optimization/1. Statistics for Cost Estimation/Estimation of the Size of Joins.md",
+    "Database Design/1. Query optimization/2. CHOOSING EVALUATION PLANS/CHOOSING EVALUATION PLANS.md",
     "Database Design/1. Query optimization/2. CHOOSING EVALUATION PLANS/Optimizing Nested Subqueries.md",
+    "Database Design/1. Query optimization/2. CHOOSING EVALUATION PLANS/Summary.md",
     "Database Design/1. Query optimization/2. CHOOSING EVALUATION PLANS/Dynamic Programming in Join Order Optimization.md",
     "Database Design/1. Query optimization/2. CHOOSING EVALUATION PLANS/Cost-Based Optimization vs heuristics.md",
-    "Database Design/1. Query optimization/2. CHOOSING EVALUATION PLANS/CHOOSING EVALUATION PLANS.md",
+    "Database Design/1. Query optimization/3. Materialized Views/Aggregation Operations in Maintenance.md",
     "Database Design/1. Query optimization/1. Statistics for Cost Estimation/Statistics for Cost Estimation.md",
     "Database Design/1. Query optimization/1. Statistics for Cost Estimation/Statistical Information for Cost Estimation.md",
-    "Database Design/1. Query optimization/1. Statistics for Cost Estimation/Size Estimation of Complex Selections.md",
-    "Database Design/1. Query optimization/1. Statistics for Cost Estimation/Selection Size Estimation.md",
     "Database Design/4. Recovery/3. Concurrency Control & Recovery.md",
     "Database Design/4. Recovery/2. Storage Structure.md",
     "Database Design/4. Recovery/1. Base.md",
@@ -212,16 +219,9 @@
     "Database Design/3.Concurrency Control/Lock-Based Protocols/5. Multiple Granularity Locking.md",
     "Database Design/3.Concurrency Control/Lock-Based Protocols/4. Deadlock Detection and Recovery.md",
     "Database Design/3.Concurrency Control/Lock-Based Protocols/3. Deadlock prevention.md",
-    "Database Design/3.Concurrency Control/Lock-Based Protocols/2. Graph-Based protocols.md",
-    "Database Design/3.Concurrency Control/Lock-Based Protocols/1. Two-Phase Locking Protocol.md",
     "Database Design/2. Transaction/6. Levels of Consistency.md",
-    "Database Design/2. Transaction/5. Cascadeless schedules.md",
-    "Database Design/2. Transaction/4. View Serializability.md",
     "Database Design/2. Transaction/3. Conflict Serializability.md",
     "Database Design/2. Transaction/2. State.md",
-    "Database Design/2. Transaction/1. ACID.md",
-    "Database Design/1. Query optimization/total summary.md",
-    "Database Design/1. Query optimization/3. Materialized Views/Maintenance.md",
     "Pasted image 20251210090928.png",
     "images/Pasted image 20251210070345.png",
     "images/Pasted image 20251210084817.png",
