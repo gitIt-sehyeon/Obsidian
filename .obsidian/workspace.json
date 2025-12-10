@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Database Design/2. Transaction/3. Conflict Serializability.md",
+                "file": "Database Design/3.Concurrency Control/Lock-Based Protocols/5. Multiple Granularity Locking.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "3. Conflict Serializability"
+              "title": "5. Multiple Granularity Locking"
             }
           }
         ]
@@ -196,6 +196,14 @@
   },
   "active": "d40208851d0a3582",
   "lastOpenFiles": [
+    "Database Design/3.Concurrency Control/Lock-Based Protocols/4. Deadlock Detection and Recovery.md",
+    "Database Design/3.Concurrency Control/Lock-Based Protocols/3. Deadlock prevention.md",
+    "Database Design/3.Concurrency Control/Lock-Based Protocols/2. Graph-Based protocols.md",
+    "Database Design/3.Concurrency Control/Lock-Based Protocols/1. Two-Phase Locking Protocol.md",
+    "Database Design/2. Transaction/6. Levels of Consistency.md",
+    "Database Design/2. Transaction/5. Cascadeless schedules.md",
+    "Database Design/2. Transaction/4. View Serializability.md",
+    "Database Design/2. Transaction/3. Conflict Serializability.md",
     "Database Design/2. Transaction/2. State.md",
     "Database Design/2. Transaction/1. ACID.md",
     "Database Design/1. Query optimization/total summary.md",
@@ -218,15 +226,7 @@
     "Database Design/4. Recovery/3. Concurrency Control & Recovery.md",
     "images/Pasted image 20251210084817.png",
     "images/Pasted image 20251210084806.png",
-    "Database Design/4. Recovery/2. Storage Structure.md",
-    "Database Design/4. Recovery/1. Base.md",
     "Database Design/4. Recovery",
-    "Database Design/3.Concurrency Control/Lock-Based Protocols/7. Snapshot Isolation.md",
-    "Database Design/3.Concurrency Control/Lock-Based Protocols/6. Intention Lock Modes.md",
-    "Database Design/3.Concurrency Control/Lock-Based Protocols/5. Multiple Granularity Locking.md",
-    "Database Design/3.Concurrency Control/Lock-Based Protocols/4. Deadlock Detection and Recovery.md",
-    "Database Design/3.Concurrency Control/Lock-Based Protocols/3. Deadlock prevention.md",
-    "Database Design/3.Concurrency Control/Lock-Based Protocols/2. Graph-Based protocols.md",
     "images/Pasted image 20251210073332.png",
     "images/Pasted image 20251210031538.png",
     "Database Design/2. Transaction",
