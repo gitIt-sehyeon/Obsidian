@@ -11,12 +11,14 @@
             "id": "d40208851d0a3582",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "images/Pasted image 20251211094020.png"
+                "file": "linear algebra/전이행렬.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-image",
-              "title": "Pasted image 20251211094020"
+              "icon": "lucide-file",
+              "title": "전이행렬"
             }
           }
         ]
@@ -192,8 +194,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "4c3763616407bb5d",
+  "active": "d40208851d0a3582",
   "lastOpenFiles": [
+    "linear algebra/직교 행렬.md",
+    "images/Pasted image 20251211094020.png",
     "linear algebra/대각화.md",
     "images/Pasted image 20251211135047.png",
     "linear algebra/QR 분해.md",
@@ -201,7 +205,6 @@
     "linear algebra/전이행렬.md",
     "linear algebra/직교 여공간.md",
     "linear algebra/정규직교기저.md",
-    "images/Pasted image 20251211094020.png",
     "images/Pasted image 20251210090928.png",
     "images/Pasted image 20251211055151.png",
     "images/Pasted image 20251211055127.png",
@@ -225,7 +228,6 @@
     "Database Design/4. Recovery/3. Concurrency Control & Recovery.md",
     "Database Design/4. Recovery/2. Storage Structure.md",
     "Database Design/4. Recovery/1. Base.md",
-    "Database Design/3.Concurrency Control/Lock-Based Protocols/7. Snapshot Isolation.md",
     "images/Pasted image 20251210070345.png",
     "images/Pasted image 20251210084817.png",
     "images/Pasted image 20251210084806.png",
