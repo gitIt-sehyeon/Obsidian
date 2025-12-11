@@ -11,14 +11,12 @@
             "id": "d40208851d0a3582",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "linear algebra/직교 여공간.md",
-                "mode": "source",
-                "source": false
+                "file": "images/Pasted image 20251211094020.png"
               },
-              "icon": "lucide-file",
-              "title": "직교 여공간"
+              "icon": "lucide-image",
+              "title": "Pasted image 20251211094020"
             }
           }
         ]
@@ -194,10 +192,16 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "d40208851d0a3582",
+  "active": "4c3763616407bb5d",
   "lastOpenFiles": [
+    "linear algebra/대각화.md",
+    "images/Pasted image 20251211135047.png",
+    "linear algebra/QR 분해.md",
+    "images/Pasted image 20251211134903.png",
     "linear algebra/전이행렬.md",
     "linear algebra/직교 여공간.md",
+    "linear algebra/정규직교기저.md",
+    "images/Pasted image 20251211094020.png",
     "images/Pasted image 20251210090928.png",
     "images/Pasted image 20251211055151.png",
     "images/Pasted image 20251211055127.png",
@@ -222,16 +226,11 @@
     "Database Design/4. Recovery/2. Storage Structure.md",
     "Database Design/4. Recovery/1. Base.md",
     "Database Design/3.Concurrency Control/Lock-Based Protocols/7. Snapshot Isolation.md",
-    "Database Design/3.Concurrency Control/Lock-Based Protocols/6. Intention Lock Modes.md",
-    "Database Design/3.Concurrency Control/Lock-Based Protocols/5. Multiple Granularity Locking.md",
-    "Database Design/3.Concurrency Control/Lock-Based Protocols/4. Deadlock Detection and Recovery.md",
-    "Database Design/2. Transaction/6. Levels of Consistency.md",
     "images/Pasted image 20251210070345.png",
     "images/Pasted image 20251210084817.png",
     "images/Pasted image 20251210084806.png",
     "Database Design/4. Recovery",
     "images/Pasted image 20251210073332.png",
-    "images/Pasted image 20251210031538.png",
     "Database Design/2. Transaction",
     "Database Design/3.Concurrency Control/Lock-Based Protocols",
     "Database Design/3.Concurrency Control",
@@ -239,8 +238,6 @@
     "Database Design/1. Query optimization/3. Materialized Views",
     "Database Design/1. Query optimization/1. Statistics for Cost Estimation",
     "Database Design/1. Query optimization/2. CHOOSING EVALUATION PLANS",
-    "images/Pasted image 20251209214659.png",
-    "images/Pasted image 20251209215301.png",
     "images"
   ]
 }
