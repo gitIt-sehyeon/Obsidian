@@ -8,33 +8,20 @@
         "type": "tabs",
         "children": [
           {
-            "id": "d40208851d0a3582",
-            "type": "leaf",
-            "state": {
-              "type": "image",
-              "state": {
-                "file": "images/Pasted image 20251211141158.png"
-              },
-              "icon": "lucide-image",
-              "title": "Pasted image 20251211141158"
-            }
-          },
-          {
-            "id": "4c4f7b1a68d306ce",
+            "id": "b592aae5a9aaa439",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "linear algebra/정규직교기저.md",
+                "file": "Database Design/1. Query optimization/1. Statistics for Cost Estimation/Estimation of the Size of Joins.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "정규직교기저"
+              "title": "Estimation of the Size of Joins"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -207,52 +194,53 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "4c4f7b1a68d306ce",
+  "active": "4c3763616407bb5d",
   "lastOpenFiles": [
-    "linear algebra/직교 여공간.md",
-    "linear algebra/정규직교기저.md",
-    "linear algebra/전이행렬.md",
-    "images/Pasted image 20251211162022.png",
-    "images/Pasted image 20251211141158.png",
-    "linear algebra/대각화.md",
-    "images/Pasted image 20251211155445.png",
-    "linear algebra/직교 행렬.md",
-    "linear algebra/QR 분해.md",
-    "images/Pasted image 20251211094020.png",
-    "images/Pasted image 20251211135047.png",
-    "images/Pasted image 20251211134903.png",
-    "images/Pasted image 20251210090928.png",
-    "images/Pasted image 20251211055151.png",
-    "images/Pasted image 20251211055127.png",
-    "Database Design/3.Concurrency Control/Lock-Based Protocols/3. Deadlock prevention.md",
-    "linear algebra",
-    "Database Design/3.Concurrency Control/Lock-Based Protocols/2. Graph-Based protocols.md",
-    "Database Design/3.Concurrency Control/Lock-Based Protocols/1. Two-Phase Locking Protocol.md",
-    "Database Design/2. Transaction/5. Cascadeless schedules.md",
-    "Database Design/2. Transaction/4. View Serializability.md",
     "Database Design/1. Query optimization/1. Statistics for Cost Estimation/Selection Size Estimation.md",
     "Database Design/1. Query optimization/1. Statistics for Cost Estimation/Size Estimation of Complex Selections.md",
     "Database Design/1. Query optimization/1. Statistics for Cost Estimation/Estimation of the Size of Joins.md",
-    "Database Design/1. Query optimization/2. CHOOSING EVALUATION PLANS/CHOOSING EVALUATION PLANS.md",
-    "Database Design/1. Query optimization/2. CHOOSING EVALUATION PLANS/Optimizing Nested Subqueries.md",
-    "Database Design/1. Query optimization/2. CHOOSING EVALUATION PLANS/Summary.md",
-    "Database Design/1. Query optimization/2. CHOOSING EVALUATION PLANS/Dynamic Programming in Join Order Optimization.md",
-    "Database Design/1. Query optimization/2. CHOOSING EVALUATION PLANS/Cost-Based Optimization vs heuristics.md",
-    "Database Design/1. Query optimization/3. Materialized Views/Aggregation Operations in Maintenance.md",
-    "Database Design/1. Query optimization/1. Statistics for Cost Estimation/Statistics for Cost Estimation.md",
-    "Database Design/1. Query optimization/1. Statistics for Cost Estimation/Statistical Information for Cost Estimation.md",
+    "Deep Learning/Test2.md",
     "Database Design/4. Recovery/3. Concurrency Control & Recovery.md",
     "Database Design/4. Recovery/2. Storage Structure.md",
     "Database Design/4. Recovery/1. Base.md",
-    "images/Pasted image 20251210070345.png",
     "Database Design/4. Recovery",
-    "Database Design/2. Transaction",
+    "Database Design/3.Concurrency Control/Lock-Based Protocols/7. Snapshot Isolation.md",
+    "Database Design/3.Concurrency Control/Lock-Based Protocols/6. Intention Lock Modes.md",
+    "Database Design/3.Concurrency Control/Lock-Based Protocols/5. Multiple Granularity Locking.md",
+    "Database Design/3.Concurrency Control/Lock-Based Protocols/4. Deadlock Detection and Recovery.md",
+    "Database Design/3.Concurrency Control/Lock-Based Protocols/3. Deadlock prevention.md",
+    "Database Design/3.Concurrency Control/Lock-Based Protocols/2. Graph-Based protocols.md",
+    "Database Design/3.Concurrency Control/Lock-Based Protocols/1. Two-Phase Locking Protocol.md",
     "Database Design/3.Concurrency Control/Lock-Based Protocols",
     "Database Design/3.Concurrency Control",
-    "Database Design/1. Query optimization",
+    "linear algebra/직교 행렬.md",
+    "linear algebra/직교 여공간.md",
+    "linear algebra/정규직교기저.md",
+    "linear algebra/전이행렬.md",
+    "linear algebra/대각화.md",
+    "linear algebra/QR 분해.md",
+    "linear algebra",
+    "images/Pasted image 20251211162022.png",
+    "images/Pasted image 20251211141158.png",
+    "images/Pasted image 20251211155445.png",
+    "images/Pasted image 20251211135047.png",
+    "images/Pasted image 20251211094020.png",
+    "images/Pasted image 20251211134903.png",
+    "images/Pasted image 20251211055151.png",
+    "images/Pasted image 20251210070345.png",
+    "images/Pasted image 20251211055127.png",
+    "images/Pasted image 20251210090928.png",
+    "images",
+    "Database Design/1. Query optimization/3. Materialized Views/Materialized Views.md",
+    "Database Design/1. Query optimization/3. Materialized Views/Maintenance.md",
+    "Database Design/1. Query optimization/3. Materialized Views/Join, Selection and Projection in Incremental View Maintenance.md",
+    "Database Design/1. Query optimization/3. Materialized Views/Aggregation Operations in Maintenance.md",
+    "Database Design/1. Query optimization/2. CHOOSING EVALUATION PLANS/Summary.md",
+    "Database Design/1. Query optimization/2. CHOOSING EVALUATION PLANS/Optimizing Nested Subqueries.md",
     "Database Design/1. Query optimization/3. Materialized Views",
-    "Database Design/1. Query optimization/1. Statistics for Cost Estimation",
     "Database Design/1. Query optimization/2. CHOOSING EVALUATION PLANS",
-    "images"
+    "Database Design/1. Query optimization/1. Statistics for Cost Estimation",
+    "Database Design/2. Transaction",
+    "Database Design/1. Query optimization"
   ]
 }
