@@ -1,0 +1,510 @@
+# OpsFit Todo Web (Balance형) 실행 패키지
+
+## 0) 목표 정의
+
+- **기능 5개**: (1) 개인+팀 Todo (2) 태그/우선순위 (3) 캘린더 뷰 (4) 주간 통계 (5) 리마인더(서버리스 1개)
+    
+- **운영 6개**: (1) Terraform 모듈화(dev/prod) (2) CI/CD + 자동 롤백 (3) HPA + 부하테스트 1회 (4) 관측 대시보드 (5) 비용 태깅+간단 최적화 (6) Runbook 4개
+    
+
+---
+
+## 1) 주차별 로드맵 + 체크리스트 (6주 기준)
+
+### Week 1 — 리포지토리/기본 앱 골격
+
+-  Monorepo 생성 (`apps/todo-api`, `apps/todo-web`, `infra`, `k8s`, `docs`)
+    
+-  Spring Boot 3 + Java 21 프로젝트 생성
+    
+-  핵심 엔드포인트: `GET /health`, `GET /actuator/health/*`
+    
+-  React(또는 Next.js) 기본 화면: 로그인/리스트 라우팅
+    
+-  Dockerfile 2개(api/web) 작성
+    
+
+산출물
+
+- `README`에 “프로젝트 개요 + 목표 + 기능/운영 범위” 1페이지
+    
+
+---
+
+### Week 2 — DB 모델 + 개인 Todo CRUD + 인증 최소
+
+-  RDS(MySQL) 로컬 대체: Docker MySQL로 먼저 개발
+    
+-  스키마(users, workspaces, workspace_members, todos, tags, todo_tags) 설계
+    
+-  JWT 로그인/가입 최소 구현
+    
+-  Todo CRUD(개인) 구현
+    
+-  API 문서(간단): Swagger/OpenAPI 또는 README에 endpoint 표
+    
+
+산출물
+
+- “DB ERD(간단)” + “API 목록표”
+    
+
+---
+
+### Week 3 — 팀 Todo + 태그/우선순위 + 권한
+
+-  workspace(팀) 도입
+    
+-  RBAC 최소: workspace owner/member
+    
+-  태그/우선순위/필터 구현
+    
+-  쿼리 성능 고려: 인덱스 2~3개 추가 + 이유 문서화
+    
+
+산출물
+
+- “권한 규칙 표” + “인덱스 설계 근거”
+    
+
+---
+
+### Week 4 — 캘린더 뷰 + 주간 통계
+
+-  `due_date` 기반 캘린더 뷰(월/주 중 하나만)
+    
+-  통계 API: 주간 생성/완료 수 + 태그별 완료 Top N
+    
+-  통계 계산 방식 문서(실시간 vs 집계)
+    
+
+산출물
+
+- `/stats` 화면 스크린샷 + 통계 API 응답 예시
+    
+
+---
+
+### Week 5 — 인프라(테라폼) + K8s 배포
+
+-  Terraform: VPC(public/private) + EKS + ECR + RDS + ALB Ingress
+    
+-  K8s: Deployment/Service/Ingress/HPA + Secret/ConfigMap
+    
+-  probe 설정(readiness/liveness)
+    
+-  CloudWatch 로그 수집 확인(“어디서 무엇을 보는지” 캡처)
+    
+
+산출물
+
+- 아키텍처 다이어그램 1장 + “배포 절차” 문서
+    
+
+---
+
+### Week 6 — CI/CD + 관측 + 부하테스트 + Runbook + 비용
+
+-  GitHub Actions: build→ECR→EKS 배포 + Health check
+    
+-  실패 시 롤백 자동화(최소: 배포 실패 시 `rollout undo` 실행)
+    
+-  k6 부하테스트 1회(전/후 지표 비교)
+    
+-  Runbook 4개 작성
+    
+-  비용 태깅 규칙 + dev 환경 비용 절감 아이디어 문서
+    
+
+산출물
+
+- “관측 대시보드 캡처” + “부하테스트 결과” + “Runbook”
+    
+
+---
+
+## 2) 기능 5개 상세 스펙 (DB/API/권한/운영 연계 포함)
+
+### 공통: 도메인 모델(추천)
+
+- **User**
+    
+- **Workspace** (개인=개인 워크스페이스 1개 자동 생성)
+    
+- **WorkspaceMember** (role: OWNER, MEMBER)
+    
+- **Todo**
+    
+- **Tag** / **TodoTag** (N:M)
+    
+
+---
+
+### 기능 1) 개인 + 팀 Todo (Workspace 기반)
+
+권한 규칙
+
+- Workspace OWNER: 멤버 초대/추방 가능, Todo 전체 조회 가능
+    
+- MEMBER: 본인 Todo CRUD 가능 + 팀 정책에 따라 “팀 Todo 생성/수정” 허용(권장: 팀 Todo는 모두 수정 가능)
+    
+
+DB(핵심 컬럼)
+
+- `workspaces(id, name, owner_user_id, created_at)`
+    
+- `workspace_members(id, workspace_id, user_id, role, joined_at)`
+    
+- `todos(id, workspace_id, assignee_user_id, title, status, priority, due_date, created_at, updated_at, done_at)`
+    
+
+API(최소)
+
+- `POST /workspaces` (옵션)
+    
+- `POST /workspaces/{id}/members` (초대: 이메일 기반)
+    
+- `GET /workspaces/{id}/todos`
+    
+- `POST /workspaces/{id}/todos`
+    
+- `PATCH /todos/{id}`
+    
+- `DELETE /todos/{id}`
+    
+
+운영/관측 포인트
+
+- 권한 실패(403) 비율도 에러 지표로 관측(“정상 실패”로 구분)
+    
+
+---
+
+### 기능 2) 태그 + 우선순위 + 필터
+
+DB
+
+- `tags(id, workspace_id, name)`
+    
+- `todo_tags(todo_id, tag_id)` (복합 PK)
+    
+
+API
+
+- `POST /workspaces/{id}/tags`
+    
+- `GET /workspaces/{id}/tags`
+    
+- `GET /workspaces/{id}/todos?status=&priority=&tagIds=&q=`
+    
+
+인덱스(추천)
+
+- `todos(workspace_id, status, created_at)`
+    
+- `todos(workspace_id, due_date)`
+    
+- `todo_tags(tag_id, todo_id)`
+    
+
+운영 포인트
+
+- “필터/검색이 느려졌을 때” 대응 Runbook에 연결(쿼리 플랜/인덱스)
+    
+
+---
+
+### 기능 3) 캘린더 뷰(월간 또는 주간 중 하나만)
+
+요구사항
+
+- `due_date` 기반으로 날짜별 Todo 표시
+    
+- 캘린더에서 클릭 → 해당 일자의 Todo 리스트로 필터링
+    
+
+API
+
+- `GET /workspaces/{id}/todos/calendar?from=YYYY-MM-DD&to=YYYY-MM-DD`
+    
+    - 반환: 날짜별 그룹(예: `{"2025-12-12":[...], ...}`)
+        
+
+운영 포인트
+
+- 기간 조회는 트래픽/부하 커지기 쉬움 → 범위 제한(최대 31일 등) 정책 명시
+    
+
+---
+
+### 기능 4) 주간 통계
+
+스펙(권장: 실시간 집계)
+
+- 최근 7일간
+    
+    - created_count/day
+        
+    - done_count/day
+        
+    - tag_topN(완료 기준)
+        
+
+API
+
+- `GET /workspaces/{id}/stats/weekly?weekStart=YYYY-MM-DD`
+    
+    - 반환: `days[]`, `created[]`, `done[]`, `topTags[]`
+        
+
+운영 포인트
+
+- p95 latency 관측 대상 1순위(통계는 비용이 큰 endpoint)
+    
+
+---
+
+### 기능 5) 리마인더(서버리스 1개)
+
+권장 방식(가장 깔끔)
+
+- 매일 08:00에 “오늘 due_date인 Todo”를 요약해 알림 발송
+    
+- 구현 방식:
+    
+    - (A) Lambda(또는 서버리스) → API 호출(`/internal/reminders/today`) → 이메일/슬랙 발송
+        
+    - (B) 서버리스가 DB 직접 조회(권장하지 않음: 권한/네트워크 복잡)
+        
+
+API
+
+- `POST /internal/reminders/today` (서버리스 전용, IAM/IP allowlist로 제한)
+    
+    - body: `{ "workspaceId": 1 }` 또는 전체 워크스페이스 순회는 백엔드에서 수행
+        
+
+운영 포인트
+
+- 리마인더 실패율(서버리스 에러)을 별도 지표로 관측
+    
+
+---
+
+## 3) Runbook 템플릿 4개 (Notion에 그대로)
+
+### Runbook 공통 템플릿
+
+- **현상(Symptom)**:
+    
+- **영향(Impact)**:
+    
+- **확인 지표(Indicators)**:
+    
+- **원인 후보(Possible Causes)**:
+    
+- **즉시 조치(Immediate Actions)**:
+    
+- **근본 해결(Root Fix)**:
+    
+- **재발 방지(Prevention)**:
+    
+- **검증(Verification)**:
+    
+
+---
+
+### RB-01 Pod CrashLoopBackOff
+
+- 현상: 특정 Pod가 재시작 반복, 서비스 5xx 증가
+    
+- 확인 지표:
+    
+    - K8s: CrashLoopBackOff
+        
+    - 앱 로그: 부팅 실패 스택트레이스
+        
+- 즉시 조치:
+    
+    1. `kubectl get pods -n opsfit`
+        
+    2. `kubectl describe pod <pod> -n opsfit`
+        
+    3. `kubectl logs <pod> -n opsfit --previous`
+        
+    4. 최근 배포 확인: `kubectl rollout history deploy/todo-api -n opsfit`
+        
+- 근본 해결:
+    
+    - 환경변수/Secret 누락, DB 접속정보 오류, 마이그레이션 실패 등 수정 후 재배포
+        
+- 롤백:
+    
+    - `kubectl rollout undo deploy/todo-api -n opsfit`
+        
+- 검증:
+    
+    - readiness 통과 + `/health` 200 + 5xx 정상화
+        
+
+---
+
+### RB-02 트래픽 급증으로 응답 지연(Scale 필요)
+
+- 현상: p95 latency 상승, 429/5xx 증가 가능
+    
+- 확인 지표:
+    
+    - CPU/Memory 사용률 급상승
+        
+    - HPA scale-out 여부
+        
+- 즉시 조치:
+    
+    1. HPA 확인: `kubectl get hpa -n opsfit`
+        
+    2. Pod 수 확인: `kubectl get deploy -n opsfit`
+        
+    3. Ingress/ALB target health 확인
+        
+- 근본 해결:
+    
+    - HPA target 조정(CPU 60→50), requests/limits 재조정
+        
+    - 병목 endpoint(통계/캘린더) 캐시/쿼리 개선
+        
+- 검증:
+    
+    - p95 latency 목표 범위 복귀, 에러율 감소
+        
+
+---
+
+### RB-03 DB 커넥션 초과(Too many connections)
+
+- 현상: 500 증가, 로그에 커넥션 획득 실패
+    
+- 확인 지표:
+    
+    - RDS connections 증가
+        
+    - 앱 커넥션풀 대기 증가
+        
+- 즉시 조치:
+    
+    1. 앱 로그에서 DataSource 에러 확인
+        
+    2. RDS 지표 확인(Connections)
+        
+    3. HPA로 Pod 수 증가했는지 확인(Pod 증가=커넥션 증가)
+        
+- 근본 해결:
+    
+    - HikariCP maxPoolSize 조정, 쿼리 최적화, 트랜잭션 범위 축소
+        
+    - 필요 시 RDS 스펙 상향(문서로 설명)
+        
+- 검증:
+    
+    - 에러율 정상화 + connections 안정화
+        
+
+---
+
+### RB-04 배포 후 장애(롤백/원인 분석)
+
+- 현상: 배포 직후 5xx 급증 또는 health check 실패
+    
+- 즉시 조치:
+    
+    1. `kubectl rollout status deploy/todo-api -n opsfit`
+        
+    2. 실패 시 즉시 `kubectl rollout undo deploy/todo-api -n opsfit`
+        
+    3. 로그/디프 확인(이미지 태그, 환경변수 변경)
+        
+- 근본 해결:
+    
+    - canary/blue-green(확장 아이디어), 배포 전 smoke test 강화
+        
+- 검증:
+    
+    - 정상 버전 복귀 + 배포 실패 원인 문서화
+        
+
+---
+
+## 4) 관측 대시보드 항목 (무조건 이대로 만드세요)
+
+### A. 서비스 레벨(SLI)
+
+- **Request Rate (RPS)**
+    
+- **Error Rate (4xx/5xx)**
+    
+    - 특히 5xx는 알림 대상
+        
+- **Latency**
+    
+    - p50 / p95 / p99 (최소 p95)
+        
+- **Availability**
+    
+    - `/health` 성공률 또는 ALB Target Healthy 비율
+        
+
+### B. 인프라/쿠버네티스
+
+- **Pod 수 / Restart count**
+    
+- **CPU/Memory usage vs requests/limits**
+    
+- **HPA current/desired replicas**
+    
+- **Node 상태**(리소스 부족 여부)
+    
+
+### C. 데이터베이스(RDS)
+
+- **Connections**
+    
+- **CPU utilization**
+    
+- **Free storage**
+    
+- **Slow queries(가능하면)**
+    
+
+### D. 애플리케이션(가능하면 Actuator/로그 기반)
+
+- 로그인 실패율(보안 관점)
+    
+- 특정 endpoint latency(특히 `/stats/*`, `/calendar`)
+    
+- 예외 발생 Top N
+    
+
+### 알림 룰(최소 3개)
+
+- 5xx 비율이 5분 평균 기준 임계치 초과
+    
+- p95 latency 임계치 초과
+    
+- Pod restart 급증(CrashLoop 징후)
+    
+
+---
+
+## 5) “운영까지 많이 했다”를 증명하는 README 문장 골격
+
+아래 문장들을 README에 그대로 넣으면 면접에서 설명이 쉬워집니다.
+
+- **네트워크 분리**: Public Subnet(ALB), Private Subnet(EKS Node/RDS)로 분리해 DB를 외부 노출 없이 운영했습니다.
+    
+- **배포 자동화**: GitHub Actions로 빌드→ECR→EKS 롤링 배포를 자동화하고, 배포 실패 시 롤백 절차를 Runbook으로 표준화했습니다.
+    
+- **확장성**: HPA를 적용하고 k6로 부하테스트를 수행해 스케일 아웃 및 지표 변화를 기록했습니다.
+    
+- **관측성**: 에러율/지연시간/리소스 사용률/DB 커넥션을 대시보드로 통합하고 알림 룰을 구성했습니다.
+    
+- **비용**: 태깅 규칙을 적용하고 dev 환경 비용 절감 전략(스펙 최소화/스케줄링)을 문서화했습니다.

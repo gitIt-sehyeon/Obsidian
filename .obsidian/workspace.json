@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Database Design/1. Query optimization/1. Statistics for Cost Estimation/Estimation of the Size of Joins.md",
+                "file": "ScheduleApp/Untitled.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Estimation of the Size of Joins"
+              "title": "Untitled"
             }
           }
         ]
@@ -194,11 +194,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "4c3763616407bb5d",
+  "active": "b592aae5a9aaa439",
   "lastOpenFiles": [
+    "Database Design/1. Query optimization/1. Statistics for Cost Estimation/Estimation of the Size of Joins.md",
+    "ScheduleApp/Untitled.md",
     "Database Design/1. Query optimization/1. Statistics for Cost Estimation/Selection Size Estimation.md",
     "Database Design/1. Query optimization/1. Statistics for Cost Estimation/Size Estimation of Complex Selections.md",
-    "Database Design/1. Query optimization/1. Statistics for Cost Estimation/Estimation of the Size of Joins.md",
     "Deep Learning/Test2.md",
     "Database Design/4. Recovery/3. Concurrency Control & Recovery.md",
     "Database Design/4. Recovery/2. Storage Structure.md",
@@ -236,7 +237,6 @@
     "Database Design/1. Query optimization/3. Materialized Views/Join, Selection and Projection in Incremental View Maintenance.md",
     "Database Design/1. Query optimization/3. Materialized Views/Aggregation Operations in Maintenance.md",
     "Database Design/1. Query optimization/2. CHOOSING EVALUATION PLANS/Summary.md",
-    "Database Design/1. Query optimization/2. CHOOSING EVALUATION PLANS/Optimizing Nested Subqueries.md",
     "Database Design/1. Query optimization/3. Materialized Views",
     "Database Design/1. Query optimization/2. CHOOSING EVALUATION PLANS",
     "Database Design/1. Query optimization/1. Statistics for Cost Estimation",
