@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "lab-cloud/VPC, subnet, internet gateway, route table.md",
+                "file": "Spring/Annotation/@Profile and prod.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "VPC, subnet, internet gateway, route table"
+              "title": "@Profile and prod"
             }
           }
         ]
@@ -196,15 +196,23 @@
   },
   "active": "b592aae5a9aaa439",
   "lastOpenFiles": [
+    "images/Pasted image 20260414173720.png",
+    "Database Design/1. Query optimization/1. Statistics for Cost Estimation/Statistical Information for Cost Estimation.md",
+    "Database Design/1. Query optimization/1. Statistics for Cost Estimation/Selection Size Estimation.md",
     "lab-cloud/VPC and Subnet.md",
+    "linear algebra/대각화.md",
+    "linear algebra/QR 분해.md",
+    "Spring/Annotation/@Profile and prod.md",
+    "Pasted image 20260414173345.png",
+    "images/Pasted image 20251218170047.png",
     "lab-cloud/VPC, subnet, internet gateway, route table.md",
+    "Spring/Annotation",
+    "Spring",
     "lab-cloud/S3 vs Cloud Front.md",
     "lab-cloud/Untitled",
-    "Pasted image 20251218170047.png",
     "ScheduleApp/프로젝트.md",
     "lab-cloud",
     "Database Design/1. Query optimization/1. Statistics for Cost Estimation/Estimation of the Size of Joins.md",
-    "Database Design/1. Query optimization/1. Statistics for Cost Estimation/Selection Size Estimation.md",
     "Database Design/1. Query optimization/1. Statistics for Cost Estimation/Size Estimation of Complex Selections.md",
     "Deep Learning/Test2.md",
     "Database Design/4. Recovery/3. Concurrency Control & Recovery.md",
@@ -223,9 +231,6 @@
     "linear algebra/직교 행렬.md",
     "linear algebra/직교 여공간.md",
     "linear algebra/정규직교기저.md",
-    "linear algebra/전이행렬.md",
-    "linear algebra/대각화.md",
-    "linear algebra/QR 분해.md",
     "linear algebra",
     "images/Pasted image 20251211162022.png",
     "images/Pasted image 20251211141158.png",
@@ -235,12 +240,7 @@
     "images/Pasted image 20251211134903.png",
     "images/Pasted image 20251211055151.png",
     "images/Pasted image 20251210070345.png",
-    "images/Pasted image 20251211055127.png",
     "images",
-    "Database Design/1. Query optimization/3. Materialized Views/Materialized Views.md",
-    "Database Design/1. Query optimization/3. Materialized Views/Maintenance.md",
-    "Database Design/1. Query optimization/3. Materialized Views",
-    "Database Design/1. Query optimization/2. CHOOSING EVALUATION PLANS",
-    "Database Design/1. Query optimization/1. Statistics for Cost Estimation"
+    "Database Design/1. Query optimization/3. Materialized Views"
   ]
 }
