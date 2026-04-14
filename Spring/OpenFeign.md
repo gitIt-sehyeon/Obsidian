@@ -47,6 +47,7 @@ public class TravelCoreApplication {
 ### 2. Feign 인터페이스 선언
 
 ```java
+// core 서버에 작성
 @FeignClient(name = "supply-service", url = "${sofly.supply.url}")
 public interface PlaceClient {
 
