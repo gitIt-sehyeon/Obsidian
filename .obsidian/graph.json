@@ -13,6 +13,20 @@
         "a": 1,
         "rgb": 6215260
       }
+    },
+    {
+      "query": "uid",
+      "color": {
+        "a": 1,
+        "rgb": 14725458
+      }
+    },
+    {
+      "query": "",
+      "color": {
+        "a": 1,
+        "rgb": 11657298
+      }
     }
   ],
   "collapse-display": true,
@@ -25,6 +39,6 @@
   "repelStrength": 10,
   "linkStrength": 1,
   "linkDistance": 250,
-  "scale": 0.2588386562181618,
-  "close": true
+  "scale": 0.7132754626224391,
+  "close": false
 }
