@@ -25,12 +25,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "linear algebra/정규직교기저.md",
+                "file": "CloudSecurity/LinuxShell/Link.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "정규직교기저"
+              "title": "Link"
             }
           }
         ],
@@ -209,8 +209,11 @@
   },
   "active": "4c4f7b1a68d306ce",
   "lastOpenFiles": [
-    "linear algebra/직교 여공간.md",
     "linear algebra/정규직교기저.md",
+    "CloudSecurity/LinuxShell/Link.md",
+    "CloudSecurity/LinuxShell",
+    "CloudSecurity",
+    "linear algebra/직교 여공간.md",
     "linear algebra/전이행렬.md",
     "images/Pasted image 20251211162022.png",
     "images/Pasted image 20251211141158.png",
@@ -251,8 +254,6 @@
     "Database Design/3.Concurrency Control",
     "Database Design/1. Query optimization",
     "Database Design/1. Query optimization/3. Materialized Views",
-    "Database Design/1. Query optimization/1. Statistics for Cost Estimation",
-    "Database Design/1. Query optimization/2. CHOOSING EVALUATION PLANS",
-    "images"
+    "Database Design/1. Query optimization/1. Statistics for Cost Estimation"
   ]
 }
