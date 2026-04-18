@@ -1,0 +1,313 @@
+# Set-UID Program Attack Surfaces
+
+Set-UID(Set User ID) 프로그램은 실행 시 **파일 소유자의 권한**(보통 root)으로 동작합니다.  
+일반 사용자가 특권 작업을 수행할 수 있게 해주지만, 잘못 구현되면 심각한 보안 취약점이 됩니다.
+
+---
+
+## 1. 사용자 입력(User Input) 기반 공격
+
+### 1-1. Buffer Overflow (버퍼 오버플로우)
+
+#### 개념
+
+프로그램이 할당된 버퍼보다 더 많은 데이터를 입력받을 때 발생하는 취약점입니다.  
+Set-UID 프로그램에서 발생하면, **root 권한으로 임의 코드를 실행**할 수 있습니다.
+
+#### 공격 원리
+
+```
+스택 메모리 구조:
+[ 버퍼 (128 bytes) ] [ SFP ] [ Return Address ] [ ... ]
+                        ↑
+         오버플로우로 리턴 주소를 덮어씀
+                        ↓
+[ AAAAAAAAAAAAAAAAAAAAAAAAAAA... ] [ 악성코드 주소 ]
+```
+
+1. 프로그램이 고정 크기 버퍼에 사용자 입력을 저장
+2. 입력 크기를 검증하지 않으면 버퍼 경계를 넘어 스택 덮어쓰기 가능
+3. 함수의 **리턴 주소(Return Address)**를 공격자가 원하는 주소로 교체
+4. 함수 종료 시 공격자가 삽입한 **쉘코드(shellcode)**로 점프 → root 쉘 획득
+
+#### 취약 코드 예시 (C)
+
+```c
+// 취약한 Set-UID 프로그램
+void vulnerable(char *input) {
+    char buffer[128];
+    strcpy(buffer, input);  // 길이 검사 없음! → 오버플로우 발생
+}
+
+int main(int argc, char *argv[]) {
+    vulnerable(argv[1]);
+    return 0;
+}
+```
+
+#### 안전한 코드
+
+```c
+void safe(char *input) {
+    char buffer[128];
+    strncpy(buffer, input, sizeof(buffer) - 1);  // 길이 제한
+    buffer[127] = '\0';
+}
+```
+
+#### 방어 기법
+
+|기법|설명|
+|---|---|
+|**Stack Canary**|리턴 주소 앞에 랜덤 값을 두고, 변조 시 프로그램 종료|
+|**ASLR**|주소 공간 랜덤화로 쉘코드 위치 예측 불가|
+|**NX/DEP**|스택 영역을 실행 불가(Non-Executable)로 설정|
+|**안전한 함수 사용**|`strcpy` → `strncpy`, `gets` → `fgets`|
+
+---
+
+### 1-2. Format String Vulnerability (포맷 스트링 취약점)
+
+#### 개념
+
+`printf()` 계열 함수의 **포맷 문자열 인자**로 사용자 입력을 직접 사용할 때 발생합니다.  
+공격자가 `%x`, `%n` 등의 포맷 지시자를 삽입하여 메모리를 읽거나 쓸 수 있습니다.
+
+#### 공격 원리
+
+```c
+// 취약한 코드
+printf(user_input);          // 입력이 직접 포맷 문자열로 해석됨
+
+// 공격자 입력: "%x %x %x %n"
+//   %x → 스택의 값을 16진수로 출력 (메모리 읽기)
+//   %n → 지금까지 출력된 바이트 수를 특정 주소에 씀 (메모리 쓰기!)
+```
+
+#### 주요 포맷 지시자 악용
+
+|지시자|공격 목적|
+|---|---|
+|`%x`|스택 메모리 값 유출|
+|`%s`|특정 주소의 문자열 읽기|
+|`%n`|**특정 주소에 값 쓰기** (가장 위험)|
+|`%100x`|출력 바이트 수 조절 (쓸 값 제어)|
+
+#### 공격 시나리오
+
+```
+1. %x %x %x ... 로 스택 레이아웃 파악
+2. 덮어쓸 타깃 주소 특정 (예: GOT 엔트리, 리턴 주소)
+3. %[N]x%n 조합으로 원하는 값을 타깃 주소에 기록
+4. 실행 흐름을 쉘코드로 리다이렉트 → root 쉘 획득
+```
+
+#### 안전한 코드
+
+```c
+// ❌ 취약
+printf(user_input);
+
+// ✅ 안전
+printf("%s", user_input);   // 포맷 문자열은 항상 하드코딩
+```
+
+---
+
+### 1-3. CHSH 공격 — 입력 미검증을 통한 /etc/passwd 조작
+
+#### 개념
+
+`chsh`(Change Shell)는 사용자의 기본 쉘을 변경하는 **Set-UID 프로그램**입니다.  
+변경된 쉘 정보는 `/etc/passwd`에 저장됩니다.
+
+#### /etc/passwd 파일 구조
+
+```
+username:password:UID:GID:comment:home_dir:shell
+root:x:0:0:root:/root:/bin/bash
+mallory:x:1001:1001:Mallory,,,:/home/mallory:/bin/bash
+```
+
+#### 공격 시나리오
+
+프로그램이 입력을 단순히 파일 끝에 추가할 뿐 **개행 문자나 특수 입력을 검증하지 않는다**면:
+
+**공격자 입력:**
+
+```
+/bin/csh\nroot2:x:0:0:fake_root:/root:/bin/bash
+```
+
+**공격 결과 (/etc/passwd 변화):**
+
+```
+...
+mallory:x:1001:1001:Mallory,,,:/home/mallory:/bin/csh   ← 정상 입력 처리
+root2:x:0:0:fake_root:/root:/bin/bash                    ← 삽입된 가짜 root 계정
+```
+
+#### 왜 위험한가?
+
+- `root2`의 **UID = 0, GID = 0**
+- Linux는 UID가 0이면 이름에 관계없이 **슈퍼유저(root)**로 인식
+- 공격자는 `root2` 계정으로 로그인하여 **완전한 root 권한** 획득
+
+#### 방어 기법
+
+```c
+// 입력 검증: 개행 문자 및 콜론 차단
+if (strchr(input, '\n') || strchr(input, ':')) {
+    fprintf(stderr, "Invalid shell name\n");
+    exit(1);
+}
+
+// 허용 목록(whitelist) 검증
+if (!is_valid_shell(input)) {  // /etc/shells 목록과 대조
+    fprintf(stderr, "Shell not in /etc/shells\n");
+    exit(1);
+}
+```
+
+---
+
+## 2. 시스템 입력(System Input) 기반 공격
+
+### 2-1. Race Condition (경쟁 조건)
+
+#### 개념
+
+Set-UID 프로그램이 **파일 접근 권한 확인**과 **실제 파일 사용** 사이의 짧은 시간 간격(Time-of-Check to Time-of-Use, **TOCTOU**)을 공격합니다.
+
+#### TOCTOU 공격 흐름
+
+```
+프로그램 흐름:
+  [1] access("/tmp/userfile", W_OK)   ← 권한 확인 (일반 사용자 권한으로)
+       ↕  ← 이 사이에 공격자가 개입!
+  [2] open("/tmp/userfile", O_WRONLY) ← 실제 파일 열기 (root 권한으로)
+
+공격자 동작:
+  [1]과 [2] 사이에:
+  unlink("/tmp/userfile")
+  symlink("/etc/shadow", "/tmp/userfile")  ← /etc/shadow를 가리키도록 교체
+```
+
+#### 공격 결과
+
+```
+프로그램이 /tmp/userfile을 열 때 실제로는 /etc/shadow를 root 권한으로 열게 됨
+→ /etc/shadow(패스워드 해시 파일) 덮어쓰기 또는 읽기 가능
+```
+
+#### 공격 코드 예시
+
+```bash
+# 공격자 스크립트
+while true; do
+    ln -sf /tmp/userfile /tmp/attack      # 정상 파일
+    ln -sf /etc/shadow /tmp/attack        # shadow 파일로 교체
+done
+# 프로그램 실행과 타이밍을 맞춰 반복
+```
+
+#### 방어 기법
+
+|기법|설명|
+|---|---|
+|**O_NOFOLLOW**|심볼릭 링크를 따라가지 않음|
+|**fstat 사용**|`access()` 대신 파일 디스크립터 기반 검사|
+|**atomic 연산**|확인과 사용을 하나의 원자적 연산으로 처리|
+|**Sticky bit 디렉토리 제한**|`/tmp`의 sticky bit 활용|
+
+```c
+// 안전한 구현 예시
+int fd = open(path, O_WRONLY | O_NOFOLLOW);  // 심볼릭 링크 차단
+if (fd < 0) { perror("open"); exit(1); }
+// fd를 통해 작업 (심볼릭 링크 공격 불가)
+```
+
+---
+
+### 2-2. Symbolic Link 공격 (심볼릭 링크)
+
+#### 개념
+
+비특권 파일에서 **특권 파일로 향하는 심볼릭 링크**를 생성하여, Set-UID 프로그램이 특권 파일에 접근하도록 유도합니다.
+
+#### 공격 원리
+
+```
+공격자 생성:
+  /tmp/myfile → /etc/passwd  (심볼릭 링크)
+
+Set-UID 프로그램이 /tmp/myfile을 처리할 때:
+  → 실제로는 /etc/passwd를 root 권한으로 읽기/쓰기
+```
+
+#### World-Writable /tmp 디렉토리 악용
+
+`/tmp`는 모든 사용자가 쓰기 가능한 디렉토리입니다. 이를 이용한 공격:
+
+```
+1. Set-UID 프로그램이 /tmp/tempfile을 예측 가능한 이름으로 생성
+2. 공격자가 미리 /tmp/tempfile → /etc/passwd 심볼릭 링크 생성
+3. 프로그램이 /etc/passwd를 root 권한으로 덮어씀
+```
+
+#### 공격 코드 예시
+
+```bash
+# Set-UID 프로그램 실행 전 미리 링크 생성
+ln -s /etc/shadow /tmp/vulnerable_program_tempfile
+
+# 프로그램 실행 시 /etc/shadow를 root 권한으로 수정하게 됨
+./vulnerable_setuid_program
+```
+
+#### 방어 기법
+
+```c
+// 1. O_EXCL + O_CREAT: 파일이 이미 존재하면 실패
+int fd = open("/tmp/tempfile", O_WRONLY | O_CREAT | O_EXCL, 0600);
+
+// 2. O_NOFOLLOW: 심볼릭 링크 거부
+int fd = open(path, O_RDONLY | O_NOFOLLOW);
+
+// 3. mkstemp(): 예측 불가능한 임시 파일명 생성
+char template[] = "/tmp/prog_XXXXXX";
+int fd = mkstemp(template);  // XXXXXX를 랜덤으로 채움
+```
+
+---
+
+## 3. 공격 벡터 요약
+
+```
+Set-UID Program
+      │
+      ├── User Input
+      │     ├── Buffer Overflow → 스택 덮어써서 root 쉘 실행
+      │     ├── Format String   → 메모리 읽기/쓰기로 권한 상승
+      │     └── Input Injection → 미검증 입력으로 시스템 파일 조작 (CHSH)
+      │
+      └── System Input
+            ├── Race Condition (TOCTOU) → 타이밍 공격으로 특권 파일 접근
+            ├── Symbolic Link           → 링크를 통해 특권 파일 조작
+            └── /tmp Exploitation       → world-writable 디렉토리 악용
+```
+
+---
+
+## 4. 핵심 방어 원칙
+
+1. **최소 권한 원칙 (Principle of Least Privilege)**: Set-UID 권한이 필요한 최소한의 시간만 특권 유지
+2. **입력 검증 (Input Validation)**: 모든 사용자 입력에 대해 화이트리스트 기반 검증
+3. **안전한 API 사용**: `strcpy` → `strncpy`, `gets` → `fgets`, `open` with `O_NOFOLLOW`
+4. **임시 파일 안전 처리**: `mkstemp()` 사용, `/tmp`에서 예측 가능한 파일명 지양
+5. **원자적 연산**: 확인(check)과 사용(use)을 분리하지 않기
+
+---
+
+> 참고: Set-UID 프로그램은 시스템 보안의 핵심 취약 지점입니다.  
+> 불필요한 Set-UID 비트 제거와 철저한 코드 리뷰가 필수입니다.
