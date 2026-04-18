@@ -39,12 +39,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CloudSecurity/LinuxShell/Attacks via User Inputs (Set-UID).md",
+                "file": "CloudSecurity/LinuxShell/Link.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Attacks via User Inputs (Set-UID)"
+              "title": "Link"
             }
           }
         ],
@@ -223,8 +223,9 @@
   },
   "active": "5ef3e94064a70cfa",
   "lastOpenFiles": [
-    "CloudSecurity/LinuxShell/Set-UID.md",
-    "CloudSecurity/LinuxShell/Attacks via User Inputs (Set-UID).md",
+    "CloudSecurity/Set-UID/Attacks via User Inputs (Set-UID).md",
+    "CloudSecurity/Set-UID",
+    "CloudSecurity/Set-UID/Set-UID.md",
     "CloudSecurity/LinuxShell/Umask.md",
     "CloudSecurity/LinuxShell/Link.md",
     "conflict-files-obsidian-git.md",
@@ -264,10 +265,8 @@
     "Database Design/3.Concurrency Control/Lock-Based Protocols/1. Two-Phase Locking Protocol.md",
     "Database Design/2. Transaction/5. Cascadeless schedules.md",
     "Database Design/2. Transaction/4. View Serializability.md",
-    "Database Design/1. Query optimization/1. Statistics for Cost Estimation/Selection Size Estimation.md",
     "Database Design/4. Recovery",
     "Database Design/2. Transaction",
-    "Database Design/3.Concurrency Control/Lock-Based Protocols",
-    "Database Design/3.Concurrency Control"
+    "Database Design/3.Concurrency Control/Lock-Based Protocols"
   ]
 }
