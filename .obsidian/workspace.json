@@ -39,12 +39,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CloudSecurity/Set-UID/Invoking Other Programs.md",
+                "file": "CloudSecurity/LinuxShell/Umask.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Invoking Other Programs"
+              "title": "Umask"
             }
           }
         ],
@@ -223,16 +223,16 @@
   },
   "active": "5ef3e94064a70cfa",
   "lastOpenFiles": [
-    "CloudSecurity/Set-UID/Set-UID.md",
-    "CloudSecurity/Set-UID/Invoking Other Programs.md",
-    "CloudSecurity/Set-UID/Attacks via Capability Leaking.md",
-    "CloudSecurity/Set-UID/Attacks via Environment Variables.md",
-    "images/Pasted image 20260418234538.png",
-    "CloudSecurity/Set-UID/Attacks via User Inputs (Set-UID).md",
-    "CloudSecurity/Set-UID/CHSH attack 자세히.md",
     "CloudSecurity/LinuxShell/Link.md",
-    "CloudSecurity/Set-UID",
     "CloudSecurity/LinuxShell/Umask.md",
+    "CloudSecurity/Set-UID/0. Set-UID.md",
+    "CloudSecurity/Set-UID/1. Attacks via User Inputs (Set-UID).md",
+    "CloudSecurity/Set-UID/1.1. CHSH attack 자세히.md",
+    "CloudSecurity/Set-UID/2. Attacks via Environment Variables.md",
+    "CloudSecurity/Set-UID/3. Attacks via Capability Leaking.md",
+    "CloudSecurity/Set-UID/4. Invoking Other Programs.md",
+    "images/Pasted image 20260418234538.png",
+    "CloudSecurity/Set-UID",
     "conflict-files-obsidian-git.md",
     "lab-cloud/VPC, subnet, internet gateway, route table.md",
     "lab-cloud/VPC and Subnet.md",
