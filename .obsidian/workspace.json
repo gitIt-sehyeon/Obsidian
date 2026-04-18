@@ -221,8 +221,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "5ef3e94064a70cfa",
+  "active": "4c3763616407bb5d",
   "lastOpenFiles": [
+    "images/Pasted image 20260418234538.png",
     "CloudSecurity/Set-UID/Set-UID.md",
     "CloudSecurity/Set-UID/Attacks via Environment Variables.md",
     "CloudSecurity/Set-UID/Attacks via User Inputs (Set-UID).md",
@@ -265,7 +266,6 @@
     "linear algebra",
     "Database Design/3.Concurrency Control/Lock-Based Protocols/2. Graph-Based protocols.md",
     "Database Design/3.Concurrency Control/Lock-Based Protocols/1. Two-Phase Locking Protocol.md",
-    "Database Design/2. Transaction/5. Cascadeless schedules.md",
     "Database Design/4. Recovery",
     "Database Design/2. Transaction",
     "Database Design/3.Concurrency Control/Lock-Based Protocols"
