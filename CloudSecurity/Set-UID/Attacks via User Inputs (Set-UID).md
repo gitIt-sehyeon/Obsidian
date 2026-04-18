@@ -256,6 +256,30 @@ Set-UID 프로그램이 /tmp/myfile을 처리할 때:
 3. 프로그램이 /etc/passwd를 root 권한으로 덮어씀
 ```
 
+#### 흐름
+```
+1. Set-UID 프로그램 실행
+        ↓
+   EUID = 0 (root)  ← 이미 root 권한
+        ↓
+2. 프로그램이 /tmp/tempfile 을 열려고 함
+        ↓
+3. 근데 공격자가 미리
+   /tmp/tempfile → /etc/passwd 로 심볼릭 링크 걸어놨음
+        ↓
+4. 프로그램은 /tmp/tempfile 을 열었다고 생각하지만
+   실제로는 /etc/passwd 를 root 권한으로 열어버림
+```
+
+---
+## 핵심
+
+```
+심볼릭 링크 = 그냥 "저기로 가세요" 라는 화살표
+root 권한   = Set-UID 프로그램이 원래 갖고 있던 것
+
+이 둘이 만나서 문제가 생기는 것
+```
 #### 공격 코드 예시
 
 ```bash
