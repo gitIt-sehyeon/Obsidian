@@ -1,0 +1,286 @@
+# Invoking Other Programs
+
+## 1. 개념
+
+Set-UID 프로그램 안에서 외부 명령어를 실행하는 것은 흔한 패턴입니다.  
+근데 **어떻게 실행하냐**에 따라 공격에 취약해질 수 있습니다.
+
+---
+
+## 2. Unsafe Approach - system() 함수
+
+### catall.c 코드 분석
+
+```c
+int main(int argc, char *argv[])
+{
+    char *cat = "/bin/cat";
+
+    if (argc < 2) {
+        printf("Please type a file name.\n");
+        return 1;
+    }
+
+    char *command = malloc(strlen(cat) + strlen(argv[1]) + 2);
+    sprintf(command, "%s %s", cat, argv[1]);  // "/bin/cat 사용자입력" 조합
+    system(command);                           // 그걸 그대로 실행
+    return 0;
+}
+```
+
+실행하면 이렇게 됩니다:
+
+```
+$ catall aaa
+  ↓
+argv[0] = "catall"
+argv[1] = "aaa"      ← 사용자 입력
+
+command = "/bin/cat aaa"
+system("/bin/cat aaa")  → aaa 파일 내용 출력
+```
+
+---
+
+### system() 내부 동작
+
+```
+system("명령어")
+  ↓
+내부적으로 /bin/sh 를 먼저 실행
+  ↓
+/bin/sh 가 명령어 문자열을 해석해서 실행
+```
+
+**핵심 문제: 쉘을 거치기 때문에 쉘 문법이 그대로 적용됩니다.**
+
+`;` 세미콜론 = 쉘에서 명령어 구분자 (앞 명령어 끝나면 뒤 명령어 실행)
+
+---
+
+### 공격 - "aa;/bin/sh" 입력
+
+```
+$ catall "aa;/bin/sh"
+  ↓
+command = "/bin/cat aa;/bin/sh"
+  ↓
+system("/bin/cat aa;/bin/sh")
+  ↓
+/bin/sh가 ; 기준으로 두 명령어로 분리
+  1. /bin/cat aa   → aa 파일 없음 (오류 출력)
+  2. /bin/sh       → 쉘 실행!
+```
+
+```bash
+$ catall "aa;/bin/sh"
+/bin/cat: aa: No such file or directory
+#                  ← root 쉘 획득!
+# id
+uid=1000(seed) gid=1000(seed) euid=0(root) ...
+```
+
+**데이터로 넣은 `aa;/bin/sh` 가 코드(명령어)로 해석되어버린 것입니다.**
+
+---
+
+### /bin/dash 대응책 (Ubuntu 20.04)
+
+Ubuntu 20.04에서는 `/bin/sh` 가 `/bin/dash` 를 가리키는데,  
+`/bin/dash` 는 Set-UID 프로세스 안에서 실행되면 **자동으로 권한을 낮춥니다.**
+
+```
+/bin/sh → /bin/dash  (기본값)
+  ↓
+Set-UID 프로세스 안에서 실행되면
+  ↓
+자동으로 권한 드롭 → 일반 쉘만 획득
+```
+
+그래서 실험할 때는 `/bin/sh` 를 `/bin/zsh` 로 바꿔야 합니다:
+
+```bash
+# 실험 전: dash 대신 zsh로 교체
+$ sudo ln -sf /bin/zsh /bin/sh
+
+# 실험 후: 반드시 원복
+$ sudo ln -sf /bin/dash /bin/sh
+```
+
+---
+
+## 3. Safe Approach - execve() 함수
+
+### safecatall.c 코드 분석
+
+```c
+int main(int argc, char *argv[])
+{
+    char *v[3];
+
+    if (argc < 2) {
+        printf("Please type a file name.\n");
+        return 1;
+    }
+
+    v[0] = "/bin/cat";   // 명령어 - 개발자가 하드코딩
+    v[1] = argv[1];      // 데이터 - 사용자 입력
+    v[2] = NULL;
+    execve(v[0], v, 0);  // 명령어와 데이터를 분리해서 전달
+
+    return 0;
+}
+```
+
+---
+
+### execve() 구조
+
+```
+execve(v[0],    v,    0)
+         ↑      ↑
+      명령어   데이터
+      (코드)
+      
+      완전히 분리됨!
+```
+
+```
+v[0] = "/bin/cat"    ← 개발자가 고정 (사용자가 바꿀 수 없음)
+v[1] = argv[1]       ← 사용자 입력이지만 "파일 이름"으로만 전달
+v[2] = NULL
+```
+
+---
+
+### execve() 가 안전한 이유
+
+`execve()`는 `/bin/sh` 를 거치지 않고 **프로그램을 직접 실행**합니다.
+
+```
+execve("/bin/cat", ["aa;/bin/sh"], 0)
+  ↓
+/bin/cat 을 직접 실행
+  ↓
+"aa;/bin/sh" 를 통째로 파일 이름으로 인식
+  ↓
+/bin/cat: aa;/bin/sh: No such file or directory  ← 공격 실패!
+```
+
+`;` 가 그냥 파일 이름의 일부로 처리되어 버립니다.
+
+---
+
+### 실제 비교
+
+```bash
+# ❌ catall (system 사용) - 공격 성공
+$ catall "aa;/bin/sh"
+/bin/cat: aa: No such file or directory
+#    ← root 쉘 획득!
+
+# ✅ safecatall (execve 사용) - 공격 실패
+$ safecatall "aa;/bin/sh"
+/bin/cat: aa;/bin/sh: No such file or directory   ← Attack failed!
+```
+
+---
+
+## 4. system() vs execve() 핵심 차이
+
+||system()|execve()|
+|---|---|---|
+|내부 동작|`/bin/sh` 를 거쳐 실행|프로그램 직접 실행|
+|쉘 문법 해석|됨 (`;`, `|`,` &` 등)|
+|코드/데이터 분리|안 됨|됨|
+|PATH 영향|받음|절대경로면 안 받음|
+|보안|위험|안전|
+
+---
+
+## 5. 근본 원인 - Code/Data Isolation 위반
+
+```
+system() 의 문제:
+  명령어 문자열 = 코드 + 데이터 가 섞인 하나의 문자열
+  "/bin/cat" + " " + "aa;/bin/sh"
+  → 쉘이 전체를 코드로 해석
+  → 데이터가 코드가 되어버림
+
+execve() 의 해결:
+  명령어(코드)  = v[0] = "/bin/cat"   ← 개발자가 고정
+  데이터        = v[1] = argv[1]      ← 사용자 입력
+  → 완전히 분리되어 전달
+  → 데이터는 절대 코드가 될 수 없음
+```
+
+---
+
+## 6. 다른 언어에서도 동일한 위험
+
+C만의 문제가 아닙니다.
+
+### PHP 예시
+
+```php
+<?php
+$dir = $_GET['dir'];
+system("/bin/ls $dir");  // 사용자 입력이 명령어에 섞임
+?>
+```
+
+공격 URL:
+
+```
+http://localhost/list.php?dir=.;date
+```
+
+실제 실행:
+
+```bash
+/bin/ls .;date    # ; 뒤의 date도 실행됨
+```
+
+### Perl 예시
+
+```perl
+open(FILE, "ls $dir |");  # 쉘을 거쳐서 실행 → 위험
+```
+
+---
+
+## 7. execlp / execvp 주의사항
+
+`execve()` 와 비슷하지만 **PATH 를 사용하는 함수들**도 있습니다.
+
+```c
+// 위험 - PATH 를 사용해서 탐색
+execlp("ls", "ls", NULL);    // PATH 조작에 취약
+execvp("ls", args);           // PATH 조작에 취약
+
+// 안전 - 절대 경로 명시
+execve("/bin/ls", args, 0);  // PATH 무관
+```
+
+파일 이름에 `/` 가 없으면 PATH 환경변수를 사용해서 탐색하기 때문에  
+PATH 조작 공격에 그대로 노출됩니다.
+
+---
+
+## 8. 요약
+
+```
+핵심 원칙: 코드와 데이터를 섞지 마라 (Code/Data Isolation)
+
+system()  → 쉘을 거침 → 데이터가 코드로 해석될 수 있음 → 위험
+execve()  → 직접 실행 → 코드/데이터 완전 분리          → 안전
+
+공격 방법:
+  system("명령어") 에 "aa;/bin/sh" 같은 입력 삽입
+  → ; 뒤의 /bin/sh 가 실행됨
+  → Set-UID 프로그램이라면 root 쉘 획득
+
+방어:
+  system() 대신 execve() 사용
+  명령어는 반드시 절대 경로로 하드코딩
+```

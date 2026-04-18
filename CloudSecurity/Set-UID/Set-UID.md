@@ -2,6 +2,7 @@
 1. [[Attacks via User Inputs (Set-UID)]]
 2. [[Attacks via Environment Variables]]
 3. [[Attacks via Capability Leaking]]
+4. [[Invoking Other Programs]]
 
 # Privileged Programs 정리
 
