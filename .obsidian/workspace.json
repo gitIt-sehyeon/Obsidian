@@ -37,10 +37,14 @@
             "id": "5ef3e94064a70cfa",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
+              "type": "markdown",
+              "state": {
+                "file": "CloudSecurity/LinuxShell/Attacks via User Inputs (Set-UID).md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Attacks via User Inputs (Set-UID)"
             }
           }
         ],

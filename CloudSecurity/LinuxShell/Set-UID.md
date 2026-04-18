@@ -1,5 +1,5 @@
 ## Attack Surfaces of Set-UID Programs
-[[Attacks via User Inputs (Set-UID)]]
+1. [[Attacks via User Inputs (Set-UID)]]
 
 # Privileged Programs 정리
 
