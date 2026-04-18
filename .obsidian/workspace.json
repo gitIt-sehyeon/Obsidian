@@ -39,12 +39,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CloudSecurity/LinuxShell/Link.md",
+                "file": "CloudSecurity/Set-UID/Attacks via User Inputs (Set-UID).md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Link"
+              "title": "Attacks via User Inputs (Set-UID)"
             }
           }
         ],
@@ -223,11 +223,12 @@
   },
   "active": "5ef3e94064a70cfa",
   "lastOpenFiles": [
+    "CloudSecurity/Set-UID/CHSH attack 자세히.md",
     "CloudSecurity/Set-UID/Attacks via User Inputs (Set-UID).md",
-    "CloudSecurity/Set-UID",
     "CloudSecurity/Set-UID/Set-UID.md",
-    "CloudSecurity/LinuxShell/Umask.md",
     "CloudSecurity/LinuxShell/Link.md",
+    "CloudSecurity/Set-UID",
+    "CloudSecurity/LinuxShell/Umask.md",
     "conflict-files-obsidian-git.md",
     "lab-cloud/VPC, subnet, internet gateway, route table.md",
     "lab-cloud/VPC and Subnet.md",

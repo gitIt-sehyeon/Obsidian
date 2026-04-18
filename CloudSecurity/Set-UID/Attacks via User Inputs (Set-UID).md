@@ -116,6 +116,7 @@ printf("%s", user_input);   // 포맷 문자열은 항상 하드코딩
 
 ### 1-3. CHSH 공격 — 입력 미검증을 통한 /etc/passwd 조작
 
+[[CHSH attack 자세히]]
 #### 개념
 
 `chsh`(Change Shell)는 사용자의 기본 쉘을 변경하는 **Set-UID 프로그램**입니다.  
