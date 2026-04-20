@@ -209,8 +209,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "5ef3e94064a70cfa",
+  "active": "4c3763616407bb5d",
   "lastOpenFiles": [
+    "images/Pasted image 20260421044831.png",
+    "images/Pasted image 20260421044806.png",
     "ML/3. End_to_End_ML_Proj_Part2-1.md",
     "ML/3. End_to_End_ML_Proj_Part1.md",
     "ML/2. ML_overview_part2.md",
@@ -242,7 +244,6 @@
     "CloudSecurity/2. Set-UID/3. Attacks via Capability Leaking.md",
     "CloudSecurity/2. Set-UID/2. Attacks via Environment Variables.md",
     "CloudSecurity/2. Set-UID/1.1. CHSH attack 자세히.md",
-    "CloudSecurity/2. Set-UID/0. Set-UID.md",
     "images/Pasted image 20251211141158.png",
     "images/Pasted image 20260418234538.png",
     "CloudSecurity/2. Set-UID",
@@ -254,7 +255,6 @@
     "Spring",
     "CloudSecurity/1. LinuxShell",
     "CloudSecurity",
-    "images/Pasted image 20251211162022.png",
     "linear algebra",
     "Database Design/4. Recovery"
   ]
