@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ML/3. End_to_End_ML_Proj_Part1.md",
+                "file": "ML/3. End_to_End_ML_Proj_Part2-1.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "3. End_to_End_ML_Proj_Part1"
+              "title": "3. End_to_End_ML_Proj_Part2-1"
             }
           }
         ],
@@ -211,10 +211,10 @@
   },
   "active": "5ef3e94064a70cfa",
   "lastOpenFiles": [
+    "ML/3. End_to_End_ML_Proj_Part1.md",
     "ML/2. ML_overview_part2.md",
     "ML/1. ML_overview_part1.md",
     "ML/3. End_to_End_ML_Proj_Part2-1.md",
-    "ML/3. End_to_End_ML_Proj_Part1.md",
     "images/Pasted image 20260421044831.png",
     "images/Pasted image 20260421044806.png",
     "images/Pasted image 20260419234606.png",
