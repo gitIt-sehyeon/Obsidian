@@ -1,7 +1,5 @@
 ### dyld란?
 
-
-
 **dyld (Dynamic Linker/Loader)** 는 macOS에서 프로그램 실행 시 필요한 **동적 라이브러리(.dylib)들을 메모리에 로드**해주는 시스템 컴포넌트입니다.
 
 Java의 ClassLoader랑 비슷한 역할이에요. 프로그램이 `printf()` 같은 함수를 쓸 때, 그 함수가 담긴 라이브러리를 실행 전에 찾아서 연결해주는 역할입니다.
